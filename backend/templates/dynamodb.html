@@ -4,355 +4,356 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DynamoDB CRUD</title>
+  <title>Yuxuan Lin - Personal Website</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      max-width: 1200px;
-      margin: 0 auto;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
       padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
     }
 
     .container {
-      display: flex;
-      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .table-section {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .form-section {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .section {
-      margin-bottom: 15px;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-    }
-
-    button {
-      padding: 10px 15px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    #result {
-      margin-top: 20px;
-      padding: 10px;
-      border: 1px solid #ddd;
-      display: none;
-    }
-
-    .popup {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #333;
-      color: white;
-      padding: 15px 25px;
-      border-radius: 5px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-      animation: fadeInOut 3s ease-in-out;
-    }
-
-    @keyframes fadeInOut {
-      0% {
-        opacity: 0;
-        transform: translate(-50%, 20px);
-      }
-
-      10% {
-        opacity: 1;
-        transform: translate(-50%, 0);
-      }
-
-      90% {
-        opacity: 1;
-        transform: translate(-50%, 0);
-      }
-
-      100% {
-        opacity: 0;
-        transform: translate(-50%, -20px);
-      }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
     }
 
     h1 {
-      font-size: 1.5em;
-      margin-bottom: 15px;
-    }
-
-    h2 {
-      font-size: 1.1em;
-      margin: 0 0 10px 0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      background-color: white;
-    }
-
-    th,
-    td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f5f5f5;
-      font-weight: bold;
-    }
-
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-
-    tr:hover {
-      background-color: #f5f5f5;
-    }
-
-    td pre {
-      margin: 0;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-
-    .refresh-btn {
+      color: #2c3e50;
       margin-bottom: 10px;
     }
 
-    .language-switcher {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+    .subtitle {
+      color: #7f8c8d;
+      font-size: 1.2em;
     }
 
-    .language-switcher select {
-      padding: 8px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      background-color: white;
+    .about-section {
+      margin-bottom: 40px;
+    }
+
+    .comment-section {
+      margin-top: 40px;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+
+    .comment-form {
+      margin-bottom: 20px;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .comment-form button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
-    .language-switcher select:hover {
-      border-color: #666;
+    .comment-form button:hover {
+      background-color: #2980b9;
+    }
+
+    .comment-form button:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+    }
+
+    .comments-box {
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+
+    .comment {
+      background-color: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+
+    .comment-content {
+      margin-top: 10px;
+      word-wrap: break-word;
+    }
+
+    .language-selector {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+
+    .language-selector select {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #7f8c8d;
+    }
+
+    .error {
+      color: #e74c3c;
+      text-align: center;
+      padding: 10px;
+      margin: 10px 0;
+      background-color: #fadbd8;
+      border-radius: 5px;
+    }
+
+    .chart-container {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chart-wrapper {
+      position: relative;
+      height: 400px;
+      width: 100%;
     }
   </style>
 </head>
 
 <body>
-  <div class="language-switcher">
-    <form action="{{ url_for('set_language') }}" method="post">
-      <select name="language" onchange="this.form.submit()">
-        <option value="en" {% if session.get('language', 'en' )=='en' %}selected{% endif %}>English</option>
-        <option value="de" {% if session.get('language', 'en' )=='de' %}selected{% endif %}>Deutsch</option>
-        <option value="zh" {% if session.get('language', 'en' )=='zh' %}selected{% endif %}>中文</option>
-        <option value="ja" {% if session.get('language', 'en' )=='ja' %}selected{% endif %}>日本語</option>
-      </select>
-    </form>
-  </div>
-
-  <h1>DynamoDB CRUD Operations</h1>
-
   <div class="container">
-    <div class="table-section">
-      <div class="section">
-        <h2>DynamoDB Items</h2>
-        <button class="refresh-btn" onclick="refreshTable()">Refresh Table</button>
-        <div id="tableContainer">
-          <table id="itemsTable">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Data</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-            </tbody>
-          </table>
-        </div>
+    <header>
+      <h1>Yuxuan Lin</h1>
+      <div class="subtitle">Ice Cream Enthusiast</div>
+    </header>
+
+    <div class="language-selector">
+      <form action="/set-language" method="POST">
+        <select name="language" onchange="this.form.submit()">
+          <option value="en" {% if session.get('language')=='en' %}selected{% endif %}>English</option>
+          <option value="zh" {% if session.get('language')=='zh' %}selected{% endif %}>中文</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="about-section">
+      <h2>{{ _('About Me') }}</h2>
+      <p>{{ _('Welcome to my ice cream survey! I love trying different ice cream flavors and would love to know your
+        favorite!') }}</p>
+    </div>
+
+    <div class="comment-section">
+      <h2>{{ _('Leave your favorite ice cream flavor') }}</h2>
+      <div class="comment-form">
+        <textarea id="comment" rows="4" placeholder="{{ _('What is your favorite ice cream flavor?') }}"
+          required></textarea>
+        <button onclick="submitComment()" id="submitButton">{{ _('Submit') }}</button>
+      </div>
+
+      <h3>{{ _('Ice Cream Preferences') }}</h3>
+      <div class="comments-box" id="commentsBox">
+        <div class="loading">{{ _('Loading comments...') }}</div>
       </div>
     </div>
 
-    <div class="form-section">
-      <div class="section">
-        <h2>{{ create_word|capitalize }}</h2>
-        <form id="createForm">
-          <div class="form-group">
-            <label for="createId">ID:</label>
-            <input type="text" id="createId" required>
-          </div>
-          <div class="form-group">
-            <label for="createData">Data:</label>
-            <input type="text" id="createData" placeholder='{"name": "value", "age": 25}' required>
-          </div>
-          <button type="submit">{{ create_word|capitalize }}</button>
-        </form>
-      </div>
-
-      <div class="section">
-        <h2>{{ read_word|capitalize }}</h2>
-        <form id="readForm">
-          <div class="form-group">
-            <label for="readId">ID:</label>
-            <input type="text" id="readId" required>
-          </div>
-          <button type="submit">{{ read_word|capitalize }}</button>
-        </form>
-      </div>
-
-      <div class="section">
-        <h2>{{ update_word|capitalize }}</h2>
-        <form id="updateForm">
-          <div class="form-group">
-            <label for="updateId">ID:</label>
-            <input type="text" id="updateId" required>
-          </div>
-          <div class="form-group">
-            <label for="updateData">Data:</label>
-            <input type="text" id="updateData" placeholder='{"name": "new value"}' required>
-          </div>
-          <button type="submit">{{ update_word|capitalize }}</button>
-        </form>
-      </div>
-
-      <div class="section">
-        <h2>{{ delete_word|capitalize }}</h2>
-        <form id="deleteForm">
-          <div class="form-group">
-            <label for="deleteId">ID:</label>
-            <input type="text" id="deleteId" required>
-          </div>
-          <button type="submit">{{ delete_word|capitalize }}</button>
-        </form>
+    <div class="chart-container">
+      <h3>{{ _('Ice Cream Preferences Distribution') }}</h3>
+      <div class="chart-wrapper">
+        <canvas id="iceCreamChart"></canvas>
       </div>
     </div>
   </div>
-
-  <div id="result"></div>
-  <div id="popup" class="popup"></div>
 
   <script>
-    function showPopup(message, isError = false) {
-      const popup = document.getElementById('popup');
-      popup.style.backgroundColor = isError ? '#ff4444' : '#4CAF50';
-      popup.textContent = message;
-      popup.style.display = 'block';
+    let isLoading = false;
+    let lastCommentTimestamp = null;
+    let iceCreamChart = null;
 
-      setTimeout(() => {
-        popup.style.display = 'none';
-      }, 3000);
+    // Load comments when page loads
+    window.onload = function () {
+      loadComments();
+    };
+
+    function updateChart(items) {
+      // Count occurrences of each flavor
+      const flavorCounts = {};
+      items.forEach(item => {
+        const flavor = item.comment;
+        flavorCounts[flavor] = (flavorCounts[flavor] || 0) + 1;
+      });
+
+      // Prepare data for chart
+      const labels = Object.keys(flavorCounts);
+      const data = Object.values(flavorCounts);
+
+      // Assign colors: first three are RGB, rest are HSL around the color wheel
+      const baseRGB = [
+        'rgb(255,0,0)',   // Red
+        'rgb(0,255,0)',   // Green
+        'rgb(0,0,255)'    // Blue
+      ];
+      const backgroundColors = labels.map((_, i) => {
+        if (i < 3) return baseRGB[i];
+        // Evenly spaced HSL for the rest
+        const hue = ((i - 3) * 360) / Math.max(1, labels.length - 3);
+        return `hsl(${hue}, 70%, 50%)`;
+      });
+
+      // Destroy existing chart if it exists
+      if (iceCreamChart) {
+        iceCreamChart.destroy();
+      }
+
+      // Create new chart
+      const ctx = document.getElementById('iceCreamChart').getContext('2d');
+      iceCreamChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: backgroundColors,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                font: {
+                  size: 14
+                }
+              }
+            },
+            title: {
+              display: true,
+              text: '{{ _("Ice Cream Flavor Distribution") }}',
+              font: {
+                size: 16
+              }
+            }
+          }
+        }
+      });
     }
 
-    function refreshTable() {
-      const baseUrl = window.location.pathname.replace(/\/$/, '');
-      fetch(`${baseUrl}/items`)
-        .then(response => response.json())
+    function loadComments() {
+      if (isLoading) return;
+      isLoading = true;
+
+      console.log('Fetching comments...');
+      const commentsBox = document.getElementById('commentsBox');
+      if (!lastCommentTimestamp) {
+        commentsBox.innerHTML = '<div class="loading">{{ _("Loading comments...") }}</div>';
+      }
+
+      fetch('https://hdlqy9sbt2.execute-api.us-east-2.amazonaws.com/dev/items')
+        .then(response => {
+          console.log('Response status:', response.status);
+          return response.json();
+        })
         .then(data => {
-          const tableBody = document.getElementById('tableBody');
-          tableBody.innerHTML = '';
+          console.log('Received data:', data);
+          if (data.error) {
+            throw new Error(data.error);
+          }
 
-          if (data.items && data.items.length > 0) {
-            data.items.forEach(item => {
-              const row = document.createElement('tr');
-              // Create a copy of the item without the id field
-              const itemData = { ...item };
-              delete itemData.id;
+          const items = Array.isArray(data.items) ? data.items : [];
+          console.log('Processed items:', items);
+          commentsBox.innerHTML = '';
 
-              row.innerHTML = `
-                <td>${item.id}</td>
-                <td><pre>${JSON.stringify(itemData, null, 2)}</pre></td>
-              `;
-              tableBody.appendChild(row);
-            });
-          } else {
-            const row = document.createElement('tr');
-            row.innerHTML = '<td colspan="2" style="text-align: center;">No items found</td>';
-            tableBody.appendChild(row);
+          items.forEach(item => {
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.innerHTML = `
+              <div class="comment-content">${item.comment}</div>
+            `;
+            commentsBox.appendChild(commentDiv);
+          });
+
+          // Update the pie chart
+          updateChart(items);
+
+          if (items.length > 0) {
+            lastCommentTimestamp = items[items.length - 1].timestamp;
           }
         })
         .catch(error => {
-          showPopup(`Error loading table: ${error.message}`, true);
-          const tableBody = document.getElementById('tableBody');
-          tableBody.innerHTML = '<tr><td colspan="2" style="text-align: center;">Error loading items</td></tr>';
+          console.error('Error:', error);
+          commentsBox.innerHTML = `<div class="error">${error.message || '{{ _("Error loading comments") }}'}</div>`;
+        })
+        .finally(() => {
+          isLoading = false;
         });
     }
 
-    // Add event listeners for form submissions
-    document.getElementById('createForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      createItem();
-    });
+    function submitComment() {
+      const comment = document.getElementById('comment').value;
+      const submitButton = document.getElementById('submitButton');
 
-    document.getElementById('readForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      readItem();
-    });
-
-    document.getElementById('updateForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      updateItem();
-    });
-
-    document.getElementById('deleteForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      deleteItem();
-    });
-
-    function createItem() {
-      const id = document.getElementById('createId').value;
-      const dataInput = document.getElementById('createData').value;
-
-      if (!id) {
-        showPopup('ID is required', true);
+      if (!comment) {
+        alert('{{ _("Please enter your favorite ice cream flavor") }}');
         return;
       }
 
-      let data;
-      try {
-        data = JSON.parse(dataInput);
-        data.id = id;  // Add the ID to the data object
-      } catch (error) {
-        showPopup('Error: Invalid JSON data', true);
-        return;
-      }
+      submitButton.disabled = true;
+      submitButton.textContent = '{{ _("Submitting...") }}';
 
-      const baseUrl = window.location.pathname.replace(/\/$/, '');
-      fetch(`${baseUrl}/item`, {
+      const data = {
+        comment: comment
+      };
+
+      fetch('https://hdlqy9sbt2.execute-api.us-east-2.amazonaws.com/dev/item', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -360,120 +361,31 @@
         body: JSON.stringify(data)
       })
         .then(response => response.json())
-        .then(responseData => {
-          if (responseData.error) {
-            showPopup(`Error: ${responseData.error}`, true);
-          } else {
-            showPopup('Item created successfully!');
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('result').textContent = JSON.stringify(responseData, null, 2);
-            refreshTable(); // Refresh the table after creating an item
-          }
-        })
-        .catch(error => {
-          showPopup(`Error: ${error.message}`, true);
-        });
-    }
-
-    function readItem() {
-      const id = document.getElementById('readId').value;
-
-      if (!id) {
-        showPopup('ID is required', true);
-        return;
-      }
-
-      const baseUrl = window.location.pathname.replace(/\/$/, '');
-      fetch(`${baseUrl}/item/${id}`)
-        .then(response => response.json())
         .then(data => {
           if (data.error) {
-            showPopup(`Error: ${data.error}`, true);
-          } else if (data.message === 'Item not found') {
-            showPopup('Item not found', true);
-          } else {
-            showPopup('Item retrieved successfully!');
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
-            document.getElementById('createData').value = JSON.stringify(data.data);
+            throw new Error(data.error);
           }
+          document.getElementById('comment').value = '';
+          lastCommentTimestamp = null;
+          loadComments();
         })
         .catch(error => {
-          showPopup(`Error: ${error.message}`, true);
+          console.error('Error:', error);
+          alert(error.message || '{{ _("Error submitting comment") }}');
+        })
+        .finally(() => {
+          submitButton.disabled = false;
+          submitButton.textContent = '{{ _("Submit") }}';
         });
     }
 
-    function updateItem() {
-      const id = document.getElementById('updateId').value;
-      const dataInput = document.getElementById('updateData').value;
-
-      if (!id) {
-        showPopup('ID is required', true);
-        return;
+    // Add scroll event listener for infinite scrolling
+    const commentsBox = document.getElementById('commentsBox');
+    commentsBox.addEventListener('scroll', function () {
+      if (commentsBox.scrollTop + commentsBox.clientHeight >= commentsBox.scrollHeight - 100) {
+        loadComments();
       }
-
-      let data;
-      try {
-        data = JSON.parse(dataInput);
-      } catch (error) {
-        showPopup('Error: Invalid JSON data', true);
-        return;
-      }
-
-      const baseUrl = window.location.pathname.replace(/\/$/, '');
-      fetch(`${baseUrl}/item/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            showPopup(`Error: ${data.error}`, true);
-          } else {
-            showPopup('Item updated successfully!');
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
-            refreshTable(); // Refresh the table after updating an item
-          }
-        })
-        .catch(error => {
-          showPopup(`Error: ${error.message}`, true);
-        });
-    }
-
-    function deleteItem() {
-      const id = document.getElementById('deleteId').value;
-
-      if (!id) {
-        showPopup('ID is required', true);
-        return;
-      }
-
-      const baseUrl = window.location.pathname.replace(/\/$/, '');
-      fetch(`${baseUrl}/item/${id}`, {
-        method: 'DELETE'
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            showPopup(`Error: ${data.error}`, true);
-          } else {
-            showPopup('Item deleted successfully!');
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
-            refreshTable(); // Refresh the table after deleting an item
-          }
-        })
-        .catch(error => {
-          showPopup(`Error: ${error.message}`, true);
-        });
-    }
-
-    // Load the table when the page loads
-    document.addEventListener('DOMContentLoaded', refreshTable);
+    });
   </script>
 </body>
 

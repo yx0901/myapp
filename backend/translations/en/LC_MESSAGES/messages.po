@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2024-03-11 14:00+0000\n"
+"PO-Revision-Date: 2024-03-11 14:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "About Me"
+msgstr "About Me"
+
+msgid "Welcome to my ice cream survey! I love trying different ice cream flavors and would love to know your favorite!"
+msgstr "Welcome to my ice cream survey! I love trying different ice cream flavors and would love to know your favorite!"
+
+msgid "Leave your favorite ice cream flavor"
+msgstr "Leave your favorite ice cream flavor"
+
+msgid "What is your favorite ice cream flavor?"
+msgstr "What is your favorite ice cream flavor?"
+
+msgid "Submit"
+msgstr "Submit"
+
+msgid "Ice Cream Preferences"
+msgstr "Ice Cream Preferences"
+
+msgid "Loading comments..."
+msgstr "Loading comments..."
+
+msgid "Error loading comments"
+msgstr "Error loading comments"
+
+msgid "Please enter your favorite ice cream flavor"
+msgstr "Please enter your favorite ice cream flavor"
+
+msgid "Submitting..."
+msgstr "Submitting..."
+
+msgid "Error submitting comment"
+msgstr "Error submitting comment"
+
+msgid "Ice Cream Preferences Distribution"
+msgstr "Ice Cream Preferences Distribution"
+
+msgid "Ice Cream Flavor Distribution"
+msgstr "Ice Cream Flavor Distribution" 

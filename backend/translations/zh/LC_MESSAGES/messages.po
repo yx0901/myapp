@@ -5,18 +5,55 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-06 11:33-0400\n"
-"PO-Revision-Date: 2025-06-06 11:33-0400\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2024-03-11 14:00+0000\n"
+"PO-Revision-Date: 2024-03-11 14:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: zh\n"
-"Language-Team: zh <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "About Me"
+msgstr "关于我"
+
+msgid "Welcome to my ice cream survey! I love trying different ice cream flavors and would love to know your favorite!"
+msgstr "欢迎来到我的冰淇淋调查！我喜欢尝试不同的冰淇淋口味，很想知道你最喜欢哪一种！"
+
+msgid "Leave your favorite ice cream flavor"
+msgstr "分享你最喜欢的冰淇淋口味"
+
+msgid "What is your favorite ice cream flavor?"
+msgstr "你最喜欢的冰淇淋口味是什么？"
+
+msgid "Submit"
+msgstr "提交"
+
+msgid "Ice Cream Preferences"
+msgstr "冰淇淋口味偏好"
+
+msgid "Loading comments..."
+msgstr "加载中..."
+
+msgid "Error loading comments"
+msgstr "加载评论时出错"
+
+msgid "Please enter your favorite ice cream flavor"
+msgstr "请输入你最喜欢的冰淇淋口味"
+
+msgid "Submitting..."
+msgstr "提交中..."
+
+msgid "Error submitting comment"
+msgstr "提交评论时出错"
+
+msgid "Ice Cream Preferences Distribution"
+msgstr "冰淇淋口味分布"
+
+msgid "Ice Cream Flavor Distribution"
+msgstr "冰淇淋口味分布图"
 
 #: backend/app.py:59 backend/app.py:79
 msgid "create"
