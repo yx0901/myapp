@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DynamoDB CRUD</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .table-section {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .form-section {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .section {
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      display: none;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      animation: fadeInOut 3s ease-in-out;
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+      }
+
+      10% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      90% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+      }
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: 1.1em;
+      margin: 0 0 10px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background-color: white;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f5f5f5;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    td pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .refresh-btn {
+      margin-bottom: 10px;
+    }
+
+    .language-switcher {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .language-switcher select {
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .language-switcher select:hover {
+      border-color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="language-switcher">
+    <form action="{{ url_for('set_language') }}" method="post">
+      <select name="language" onchange="this.form.submit()">
+        <option value="en" {% if session.get('language', 'en' )=='en' %}selected{% endif %}>English</option>
+        <option value="de" {% if session.get('language', 'en' )=='de' %}selected{% endif %}>Deutsch</option>
+        <option value="zh" {% if session.get('language', 'en' )=='zh' %}selected{% endif %}>中文</option>
+        <option value="ja" {% if session.get('language', 'en' )=='ja' %}selected{% endif %}>日本語</option>
+      </select>
+    </form>
+  </div>
+
+  <h1>DynamoDB CRUD Operations</h1>
+
+  <div class="container">
+    <div class="table-section">
+      <div class="section">
+        <h2>DynamoDB Items</h2>
+        <button class="refresh-btn" onclick="refreshTable()">Refresh Table</button>
+        <div id="tableContainer">
+          <table id="itemsTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section">
+        <h2>{{ create_word|capitalize }}</h2>
+        <form id="createForm">
+          <div class="form-group">
+            <label for="createId">ID:</label>
+            <input type="text" id="createId" required>
+          </div>
+          <div class="form-group">
+            <label for="createData">Data:</label>
+            <input type="text" id="createData" placeholder='{"name": "value", "age": 25}' required>
+          </div>
+          <button type="submit">{{ create_word|capitalize }}</button>
+        </form>
+      </div>
+
+      <div class="section">
+        <h2>{{ read_word|capitalize }}</h2>
+        <form id="readForm">
+          <div class="form-group">
+            <label for="readId">ID:</label>
+            <input type="text" id="readId" required>
+          </div>
+          <button type="submit">{{ read_word|capitalize }}</button>
+        </form>
+      </div>
+
+      <div class="section">
+        <h2>{{ update_word|capitalize }}</h2>
+        <form id="updateForm">
+          <div class="form-group">
+            <label for="updateId">ID:</label>
+            <input type="text" id="updateId" required>
+          </div>
+          <div class="form-group">
+            <label for="updateData">Data:</label>
+            <input type="text" id="updateData" placeholder='{"name": "new value"}' required>
+          </div>
+          <button type="submit">{{ update_word|capitalize }}</button>
+        </form>
+      </div>
+
+      <div class="section">
+        <h2>{{ delete_word|capitalize }}</h2>
+        <form id="deleteForm">
+          <div class="form-group">
+            <label for="deleteId">ID:</label>
+            <input type="text" id="deleteId" required>
+          </div>
+          <button type="submit">{{ delete_word|capitalize }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="result"></div>
+  <div id="popup" class="popup"></div>
+
+  <script>
+    function showPopup(message, isError = false) {
+      const popup = document.getElementById('popup');
+      popup.style.backgroundColor = isError ? '#ff4444' : '#4CAF50';
+      popup.textContent = message;
+      popup.style.display = 'block';
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 3000);
+    }
+
+    function refreshTable() {
+      const baseUrl = window.location.pathname.replace(/\/$/, '');
+      fetch(`${baseUrl}/items`)
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.getElementById('tableBody');
+          tableBody.innerHTML = '';
+
+          if (data.items && data.items.length > 0) {
+            data.items.forEach(item => {
+              const row = document.createElement('tr');
+              // Create a copy of the item without the id field
+              const itemData = { ...item };
+              delete itemData.id;
+
+              row.innerHTML = `
+                <td>${item.id}</td>
+                <td><pre>${JSON.stringify(itemData, null, 2)}</pre></td>
+              `;
+              tableBody.appendChild(row);
+            });
+          } else {
+            const row = document.createElement('tr');
+            row.innerHTML = '<td colspan="2" style="text-align: center;">No items found</td>';
+            tableBody.appendChild(row);
+          }
+        })
+        .catch(error => {
+          showPopup(`Error loading table: ${error.message}`, true);
+          const tableBody = document.getElementById('tableBody');
+          tableBody.innerHTML = '<tr><td colspan="2" style="text-align: center;">Error loading items</td></tr>';
+        });
+    }
+
+    // Add event listeners for form submissions
+    document.getElementById('createForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      createItem();
+    });
+
+    document.getElementById('readForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      readItem();
+    });
+
+    document.getElementById('updateForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      updateItem();
+    });
+
+    document.getElementById('deleteForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      deleteItem();
+    });
+
+    function createItem() {
+      const id = document.getElementById('createId').value;
+      const dataInput = document.getElementById('createData').value;
+
+      if (!id) {
+        showPopup('ID is required', true);
+        return;
+      }
+
+      let data;
+      try {
+        data = JSON.parse(dataInput);
+        data.id = id;  // Add the ID to the data object
+      } catch (error) {
+        showPopup('Error: Invalid JSON data', true);
+        return;
+      }
+
+      const baseUrl = window.location.pathname.replace(/\/$/, '');
+      fetch(`${baseUrl}/item`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => response.json())
+        .then(responseData => {
+          if (responseData.error) {
+            showPopup(`Error: ${responseData.error}`, true);
+          } else {
+            showPopup('Item created successfully!');
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').textContent = JSON.stringify(responseData, null, 2);
+            refreshTable(); // Refresh the table after creating an item
+          }
+        })
+        .catch(error => {
+          showPopup(`Error: ${error.message}`, true);
+        });
+    }
+
+    function readItem() {
+      const id = document.getElementById('readId').value;
+
+      if (!id) {
+        showPopup('ID is required', true);
+        return;
+      }
+
+      const baseUrl = window.location.pathname.replace(/\/$/, '');
+      fetch(`${baseUrl}/item/${id}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            showPopup(`Error: ${data.error}`, true);
+          } else if (data.message === 'Item not found') {
+            showPopup('Item not found', true);
+          } else {
+            showPopup('Item retrieved successfully!');
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            document.getElementById('createData').value = JSON.stringify(data.data);
+          }
+        })
+        .catch(error => {
+          showPopup(`Error: ${error.message}`, true);
+        });
+    }
+
+    function updateItem() {
+      const id = document.getElementById('updateId').value;
+      const dataInput = document.getElementById('updateData').value;
+
+      if (!id) {
+        showPopup('ID is required', true);
+        return;
+      }
+
+      let data;
+      try {
+        data = JSON.parse(dataInput);
+      } catch (error) {
+        showPopup('Error: Invalid JSON data', true);
+        return;
+      }
+
+      const baseUrl = window.location.pathname.replace(/\/$/, '');
+      fetch(`${baseUrl}/item/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            showPopup(`Error: ${data.error}`, true);
+          } else {
+            showPopup('Item updated successfully!');
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            refreshTable(); // Refresh the table after updating an item
+          }
+        })
+        .catch(error => {
+          showPopup(`Error: ${error.message}`, true);
+        });
+    }
+
+    function deleteItem() {
+      const id = document.getElementById('deleteId').value;
+
+      if (!id) {
+        showPopup('ID is required', true);
+        return;
+      }
+
+      const baseUrl = window.location.pathname.replace(/\/$/, '');
+      fetch(`${baseUrl}/item/${id}`, {
+        method: 'DELETE'
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            showPopup(`Error: ${data.error}`, true);
+          } else {
+            showPopup('Item deleted successfully!');
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            refreshTable(); // Refresh the table after deleting an item
+          }
+        })
+        .catch(error => {
+          showPopup(`Error: ${error.message}`, true);
+        });
+    }
+
+    // Load the table when the page loads
+    document.addEventListener('DOMContentLoaded', refreshTable);
+  </script>
+</body>
+
+</html>

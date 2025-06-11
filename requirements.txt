@@ -1,0 +1,4 @@
+flask==3.0.2
+boto3==1.34.34
+zappa==0.60.2
+python-dotenv==1.0.1
