@@ -367,3 +367,15 @@ msgid "{len_type} values are required, but {len_value} was given."
 msgid_plural "{len_type} values are required, but {len_value} were given."
 msgstr[0] ""
 
+msgid "Computer Science Student at Cornell University"
+msgstr "康奈尔大学计算机科学专业学生"
+
+msgid "I am a Computer Science student at Cornell University, passionate about technology and software development. When I am not coding, you can find me exploring the wonderful world of ice cream flavors."
+msgstr "我是康奈尔大学计算机科学专业的学生，热爱技术和软件开发。在编程之余，我喜欢探索冰淇淋的美妙世界。"
+
+msgid "My journey with ice cream began when I was young, and since then, I have been on a mission to try as many unique flavors as possible. From classic vanilla to exotic combinations, each scoop tells a story."
+msgstr "我与冰淇淋的旅程始于童年，从那时起，我就一直在尝试各种独特的口味。从经典的香草到异国风味的组合，每一勺都讲述着一个故事。"
+
+msgid "Through this survey, I hope to connect with fellow ice cream enthusiasts and learn about your favorite flavors. Your input helps create a vibrant community of ice cream lovers!"
+msgstr "通过这个调查，我希望能够结识其他冰淇淋爱好者，了解你们最喜欢的口味。你们的参与将帮助我们建立一个充满活力的冰淇淋爱好者社区！"
+

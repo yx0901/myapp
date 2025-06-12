@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-pink: #f8b4d9;
+      --light-pink: #fce4ec;
+      --dark-pink: #e8a4c4;
+      --background-pink: #fff5f8;
+      --text-color: #4a4a4a;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-pink);
+      color: var(--text-color);
+    }
+
+    .nav-menu {
+      background-color: var(--primary-pink);
+      padding: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .nav-logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--light-pink);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-form {
+      margin-top: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid var(--light-pink);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-pink);
+      outline: none;
+    }
+
+    .submit-btn {
+      background-color: var(--primary-pink);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--dark-pink);
+    }
+
+    .alert {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav-menu">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">Yuxuan Lin</a>
+      <div class="nav-links">
+        <a href="/dev">Home</a>
+        <a href="/dev/works">Works</a>
+        <a href="/dev/contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1 class="text-center mb-4">Contact Me</h1>
+
+    <!-- Contact Information Section -->
+    <div class="contact-info mb-4">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="info-card p-4 mb-3" style="background-color: var(--light-pink); border-radius: 10px;">
+            <h3 style="color: var(--dark-pink);">Email</h3>
+            <p class="mb-0">ylin090164@gmail.com</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="info-card p-4 mb-3" style="background-color: var(--light-pink); border-radius: 10px;">
+            <h3 style="color: var(--dark-pink);">Location</h3>
+            <p class="mb-0">New York, NY</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+      <div id="successAlert" class="alert alert-success" role="alert">
+        Your message has been sent successfully!
+      </div>
+      <div id="errorAlert" class="alert alert-danger" role="alert">
+        There was an error sending your message. Please try again.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const submitBtn = this.querySelector('.submit-btn');
+      const successAlert = document.getElementById('successAlert');
+      const errorAlert = document.getElementById('errorAlert');
+
+      // Hide any existing alerts
+      successAlert.style.display = 'none';
+      errorAlert.style.display = 'none';
+
+      // Disable submit button and show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      try {
+        const formData = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          message: document.getElementById('message').value
+        };
+
+        // Get the current hostname to determine the environment
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const baseUrl = isLocalhost ? '' : '/dev';  // Add /dev prefix for deployed environment
+
+        const response = await fetch(`${baseUrl}/send-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Show success message
+          successAlert.style.display = 'block';
+          // Reset form
+          this.reset();
+        } else {
+          // Show error message with more details
+          const errorMessage = data.error || 'There was an error sending your message. Please try again.';
+          errorAlert.textContent = errorMessage;
+          errorAlert.style.display = 'block';
+          console.error('Error details:', data);
+        }
+      } catch (error) {
+        // Show error message with more details
+        errorAlert.textContent = 'There was an error sending your message. Please try again.';
+        errorAlert.style.display = 'block';
+        console.error('Error:', error);
+      } finally {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }
+    });
+  </script>
+</body>
+
+</html>
