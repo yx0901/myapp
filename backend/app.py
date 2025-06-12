@@ -61,8 +61,8 @@ cache = {}
 CACHE_TTL = 60  # Cache time-to-live in seconds
 
 # Email configuration
-MAILTRAP_API_TOKEN = "371a83678f6baee78313f6784bbc57b0"
-MAILTRAP_INBOX_ID = '0'  # Your Mailtrap inbox ID
+MAILTRAP_API_TOKEN = os.getenv('MAILTRAP_API_TOKEN')
+MAILTRAP_INBOX_ID = os.getenv('MAILTRAP_INBOX_ID') # Your Mailtrap inbox ID
 SENDER_EMAIL = "hello@demomailtrap.co"
 RECIPIENT_EMAIL = "ylin090164@gmail.com"
 
@@ -308,7 +308,7 @@ def send_email():
             # Send email using Mailtrap API
             api_url = 'https://send.api.mailtrap.io/api/send'
             headers = {
-                'Api-Token': MAILTRAP_API_TOKEN,
+                'Authorization': f'Bearer {MAILTRAP_API_TOKEN}',
                 'Content-Type': 'application/json'
             }
             
