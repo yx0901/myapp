@@ -16,6 +16,8 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import requests
+from flask import send_from_directory
+
 
 # Load environment variables from .env file
 env_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -110,6 +112,9 @@ def set_language():
         logger.error(f"Error details: {e.__dict__ if hasattr(e, '__dict__') else 'No details available'}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
+@app.route('/images/<path:filename>')
+def custom_images(filename):
+    return send_from_directory('images', filename)
 # Create DynamoDB resource using IAM role
 region = os.getenv('AWS_REGION', 'us-east-2')
 dynamodb = boto3.resource('dynamodb', region_name=region)

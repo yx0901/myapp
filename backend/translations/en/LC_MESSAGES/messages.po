@@ -14,8 +14,26 @@ msgstr ""
 msgid "About Me"
 msgstr "About Me"
 
-msgid "Welcome to my ice cream survey! I love trying different ice cream flavors and would love to know your favorite!"
-msgstr "Welcome to my ice cream survey! I love trying different ice cream flavors and would love to know your favorite!"
+msgid "Computer Science Student at Cornell University"
+msgstr "Computer Science Student at Cornell University"
+
+msgid "I am a Computer Science student at Cornell University, passionate about technology and software development. When I am not coding, you can find me exploring the wonderful world of ice cream flavors."
+msgstr "I am a Computer Science student at Cornell University, passionate about technology and software development. When I am not coding, you can find me exploring the wonderful world of ice cream flavors."
+
+msgid "My journey with ice cream began when I was young, and since then, I have been on a mission to try as many unique flavors as possible. From classic vanilla to exotic combinations, each scoop tells a story."
+msgstr "My journey with ice cream began when I was young, and since then, I have been on a mission to try as many unique flavors as possible. From classic vanilla to exotic combinations, each scoop tells a story."
+
+msgid "Through this survey, I hope to connect with fellow ice cream enthusiasts and learn about your favorite flavors. Your input helps create a vibrant community of ice cream lovers!"
+msgstr "Through this survey, I hope to connect with fellow ice cream enthusiasts and learn about your favorite flavors. Your input helps create a vibrant community of ice cream lovers!"
+
+msgid "Flavors Tried"
+msgstr "Flavors Tried"
+
+msgid "Ice Cream Shops"
+msgstr "Ice Cream Shops"
+
+msgid "Happy Scoops"
+msgstr "Happy Scoops"
 
 msgid "Leave your favorite ice cream flavor"
 msgstr "Leave your favorite ice cream flavor"

@@ -263,25 +263,169 @@
         max-width: 200px;
       }
     }
+
+    .wow-hero {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 3.5rem 2rem 3rem 2rem;
+      border-radius: 20px;
+      background: none;
+      z-index: 1;
+    }
+
+    .wow-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      background: radial-gradient(circle at 60% 40%, #ffd6eb 0%, #f8b4d9 40%, #fff5f8 100%);
+      animation: bgMove 8s ease-in-out infinite alternate;
+      filter: blur(8px) brightness(0.95);
+      opacity: 0.9;
+    }
+
+    @keyframes bgMove {
+      0% {
+        background-position: 60% 40%;
+      }
+
+      100% {
+        background-position: 40% 60%;
+      }
+    }
+
+    .wow-title {
+      position: relative;
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #ff69b4, #ff1493, #ff69b4, #ff1493);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      animation: gradientMove 4s linear infinite alternate, glowPulse 2s ease-in-out infinite alternate;
+      text-shadow: 0 0 30px #ff69b4, 0 0 60px #ff1493, 0 0 10px #ff69b4;
+      margin-bottom: 1.2rem;
+      z-index: 1;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      100% {
+        background-position: 100% 50%;
+      }
+    }
+
+    @keyframes glowPulse {
+      0% {
+        text-shadow: 0 0 30px #ff69b4, 0 0 60px #ff1493, 0 0 10px #ff69b4;
+      }
+
+      100% {
+        text-shadow: 0 0 60px #ff69b4, 0 0 90px #ff1493, 0 0 30px #ff69b4;
+      }
+    }
+
+    .wow-subtitle {
+      position: relative;
+      font-size: 1.6rem;
+      color: #ff1493;
+      font-weight: 600;
+      letter-spacing: 1px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      padding: 0.7rem 2rem;
+      margin: 0 auto;
+      box-shadow: 0 2px 16px 0 rgba(255, 20, 147, 0.3);
+      opacity: 0;
+      animation: fadeInSub 2s 0.7s forwards;
+      z-index: 1;
+      text-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+    }
+
+    @keyframes fadeInSub {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .wow-title {
+        font-size: 2.2rem;
+      }
+
+      .wow-subtitle {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+      }
+
+      .wow-hero {
+        padding: 2rem 0.5rem 2rem 0.5rem;
+      }
+    }
+
+    /* Floating ice cream icons styles */
+    .floating-ice-cream {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      width: 160px;
+      height: 160px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 0.1s ease-out;
+      opacity: 0.9;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .ice-cream-1,
+    .ice-cream-2 {
+      background-image: url("{{ url_for('static', filename='4nxM8o01.svg') }}");
+    }
+
+    .ice-cream-3 {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23FFE4B5" d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7z"/><path fill="%23FFB6C1" d="M12 2c-2.76 0-5 2.24-5 5 0 2.64 2.05 4.78 4.65 4.96V16h.7v-4.04C15.05 11.78 17 9.64 17 7c0-2.76-2.24-5-5-5z" transform="translate(0 -1)"/><path fill="%23FFE4B5" d="M12 2c-2.76 0-5 2.24-5 5 0 2.64 2.05 4.78 4.65 4.96V16h.7v-4.04C15.05 11.78 17 9.64 17 7c0-2.76-2.24-5-5-5z" transform="translate(0 -2)"/><path fill="%238B4513" d="M12 17c-2.76 0-5 2.24-5 5 0 2.64 2.05 4.78 4.65 4.96V16h.7v-4.04C15.05 11.78 17 9.64 17 7c0-2.76-2.24-5-5-5z" transform="translate(0 3)"/><circle fill="%23FF69B4" cx="8" cy="6" r="0.5"/><circle fill="%23FF69B4" cx="10" cy="5" r="0.5"/><circle fill="%23FF69B4" cx="12" cy="6" r="0.5"/><circle fill="%23FF69B4" cx="14" cy="5" r="0.5"/><circle fill="%23FF69B4" cx="16" cy="6" r="0.5"/><circle fill="%23FF69B4" cx="9" cy="4" r="0.5"/><circle fill="%23FF69B4" cx="11" cy="3" r="0.5"/><circle fill="%23FF69B4" cx="13" cy="4" r="0.5"/><circle fill="%23FF69B4" cx="15" cy="3" r="0.5"/></svg>');
+    }
   </style>
 </head>
 
 <body>
+  <!-- Add floating ice cream elements -->
+  <div class="floating-ice-cream ice-cream-1"></div>
+  <div class="floating-ice-cream ice-cream-2"></div>
+
   <nav class="nav-menu">
     <div class="nav-container">
-      <a href="/" class="nav-logo">Welcome to my website</a>
+      <a href="/" class="nav-logo">{{ _('Welcome to my website') }}</a>
       <div class="nav-links">
-        <a href="/dev">Home</a>
-        <a href="/dev/works">Works</a>
-        <a href="/dev/contact">Contact</a>
+        <a href="/dev">{{ _('Home') }}</a>
+        <a href="/dev/works">{{ _('Works') }}</a>
+        <a href="/dev/contact">{{ _('Contact') }}</a>
       </div>
     </div>
   </nav>
 
   <div class="container">
-    <header>
-      <h1>Yuxuan Lin</h1>
-      <div class="subtitle">{{ _('Computer Science Student at Cornell University') }}</div>
+    <header class="wow-hero">
+      <div class="wow-bg"></div>
+      <h1 class="wow-title">Yuxuan Lin</h1>
+      <div class="wow-subtitle">{{ _('Computer Science Student at Cornell University') }}</div>
     </header>
 
     <div class="language-selector">
@@ -294,14 +438,21 @@
       <h2>{{ _('About Me') }}</h2>
       <div class="about-content">
         <div class="about-text">
-          <p>{{ _('I am a Computer Science student at Cornell University, passionate about technology and software
-            development. When I am not coding, you can find me exploring the wonderful world of ice cream flavors.') }}
+          <p>
+            {{ _('I am a Computer Science student at Cornell University.') }}
+            {{ _('I am passionate about technology and software development.') }}
+            {{ _('When I am not coding, you can find me exploring ice cream flavors.') }}
           </p>
-          <p>{{ _('My journey with ice cream began when I was young, and since then, I have been on a mission to try as
-            many unique flavors as possible. From classic vanilla to exotic combinations, each scoop tells a story.') }}
+          <p>
+            {{ _('My journey with ice cream began when I was young.') }}
+            {{ _('I have been on a mission to try many unique flavors.') }}
+            {{ _('From classic vanilla to exotic combinations, each scoop tells a story.') }}
           </p>
-          <p>{{ _('Through this survey, I hope to connect with fellow ice cream enthusiasts and learn about your
-            favorite flavors. Your input helps create a vibrant community of ice cream lovers!') }}</p>
+          <p>
+            {{ _('Through this survey, I hope to connect with fellow ice cream enthusiasts.') }}
+            {{ _('I want to learn about your favorite flavors.') }}
+            {{ _('Your input helps create a vibrant community of ice cream lovers!') }}
+          </p>
         </div>
         <div class="about-stats">
           <div class="stat-item">
@@ -526,7 +677,11 @@
     });
 
     function changeLanguage(lang) {
-      fetch('https://hdlqy9sbt2.execute-api.us-east-2.amazonaws.com/dev/set-language', {
+      // Get the current hostname to determine the environment
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const baseUrl = isLocalhost ? '' : '/dev';  // Add /dev prefix for deployed environment
+
+      fetch(`${baseUrl}/set-language`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -541,6 +696,67 @@
         })
         .catch(error => console.error('Error:', error));
     }
+
+    // Floating ice cream animation
+    document.addEventListener('DOMContentLoaded', function () {
+      const iceCreams = document.querySelectorAll('.floating-ice-cream');
+      let mouseX = 0;
+      let mouseY = 0;
+      let iceCreamX = [0, 0];
+      let iceCreamY = [0, 0];
+
+      // Initialize ice cream positions
+      iceCreams.forEach((iceCream, index) => {
+        iceCreamX[index] = Math.random() * window.innerWidth;
+        iceCreamY[index] = Math.random() * window.innerHeight;
+        iceCream.style.left = iceCreamX[index] + 'px';
+        iceCream.style.top = iceCreamY[index] + 'px';
+      });
+
+      // Update mouse position
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      // Animation loop
+      function animate() {
+        iceCreams.forEach((iceCream, index) => {
+          // Calculate distance from mouse
+          const dx = mouseX - iceCreamX[index];
+          const dy = mouseY - iceCreamY[index];
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          // Move ice cream away from mouse
+          if (distance < 200) {
+            const angle = Math.atan2(dy, dx);
+            const force = (200 - distance) / 200;
+            iceCreamX[index] -= Math.cos(angle) * force * 5;
+            iceCreamY[index] -= Math.sin(angle) * force * 5;
+          }
+
+          // Add some random movement
+          iceCreamX[index] += (Math.random() - 0.5) * 2;
+          iceCreamY[index] += (Math.random() - 0.5) * 2;
+
+          // Keep ice cream within bounds
+          iceCreamX[index] = Math.max(0, Math.min(window.innerWidth, iceCreamX[index]));
+          iceCreamY[index] = Math.max(0, Math.min(window.innerHeight, iceCreamY[index]));
+
+          // Update position
+          iceCream.style.left = iceCreamX[index] + 'px';
+          iceCream.style.top = iceCreamY[index] + 'px';
+
+          // Add rotation based on movement
+          const rotation = Math.atan2(dy, dx) * (180 / Math.PI);
+          iceCream.style.transform = `rotate(${rotation}deg)`;
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    });
   </script>
 </body>
 

@@ -19,8 +19,44 @@ msgstr ""
 msgid "About Me"
 msgstr "关于我"
 
-msgid "Welcome to my ice cream survey! I love trying different ice cream flavors and would love to know your favorite!"
-msgstr "欢迎来到我的冰淇淋调查！我喜欢尝试不同的冰淇淋口味，很想知道你最喜欢哪一种！"
+msgid "Computer Science Student at Cornell University"
+msgstr "康奈尔大学计算机科学学生"
+
+msgid "I am a Computer Science student at Cornell University."
+msgstr "我是康奈尔大学计算机科学专业的学生。"
+
+msgid "I am passionate about technology and software development."
+msgstr "我对技术和软件开发充满热情。"
+
+msgid "When I am not coding, you can find me exploring ice cream flavors."
+msgstr "当我不在编程时，你会发现我在找新的冰淇淋口味。"
+
+msgid "My journey with ice cream began when I was young."
+msgstr "我从小就开启了我的冰淇淋之旅始。"
+
+msgid "I have been on a mission to try many unique flavors."
+msgstr "我一直致力尝试各种独特口味。"
+
+msgid "From classic vanilla to exotic combinations, each scoop tells a story."
+msgstr "从经典的香草到异国风味的组合，每一勺都讲述着一个故事。"
+
+msgid "Through this survey, I hope to connect with fellow ice cream enthusiasts."
+msgstr "通过这次调查，我希望能够与其他冰淇淋爱好者交流。"
+
+msgid "I want to learn about your favorite flavors."
+msgstr "我想了解你们最喜欢的口味。"
+
+msgid "Your input helps create a vibrant community of ice cream lovers!"
+msgstr "你们的参与将帮助创建一个充满活力的冰淇淋爱好者社区！"
+
+msgid "Flavors Tried"
+msgstr "已尝试口味"
+
+msgid "Ice Cream Shops"
+msgstr "冰淇淋店"
+
+msgid "Happy Scoops"
+msgstr "快乐冰淇淋"
 
 msgid "Leave your favorite ice cream flavor"
 msgstr "分享你最喜欢的冰淇淋口味"
@@ -367,15 +403,42 @@ msgid "{len_type} values are required, but {len_value} was given."
 msgid_plural "{len_type} values are required, but {len_value} were given."
 msgstr[0] ""
 
-msgid "Computer Science Student at Cornell University"
-msgstr "康奈尔大学计算机科学专业学生"
+msgid "Welcome to my website"
+msgstr "欢迎来到我的网站"
 
-msgid "I am a Computer Science student at Cornell University, passionate about technology and software development. When I am not coding, you can find me exploring the wonderful world of ice cream flavors."
-msgstr "我是康奈尔大学计算机科学专业的学生，热爱技术和软件开发。在编程之余，我喜欢探索冰淇淋的美妙世界。"
+msgid "Home"
+msgstr "首页"
 
-msgid "My journey with ice cream began when I was young, and since then, I have been on a mission to try as many unique flavors as possible. From classic vanilla to exotic combinations, each scoop tells a story."
-msgstr "我与冰淇淋的旅程始于童年，从那时起，我就一直在尝试各种独特的口味。从经典的香草到异国风味的组合，每一勺都讲述着一个故事。"
+msgid "Works"
+msgstr "作品"
 
-msgid "Through this survey, I hope to connect with fellow ice cream enthusiasts and learn about your favorite flavors. Your input helps create a vibrant community of ice cream lovers!"
-msgstr "通过这个调查，我希望能够结识其他冰淇淋爱好者，了解你们最喜欢的口味。你们的参与将帮助我们建立一个充满活力的冰淇淋爱好者社区！"
+msgid "Contact"
+msgstr "联系我"
+
+msgid "Contact Me"
+msgstr "联系我"
+
+msgid "Email"
+msgstr "邮箱"
+
+msgid "Location"
+msgstr "位置"
+
+msgid "Name"
+msgstr "姓名"
+
+msgid "Message"
+msgstr "留言"
+
+msgid "Send Message"
+msgstr "发送留言"
+
+msgid "Your message has been sent successfully!"
+msgstr "您的留言已成功发送！"
+
+msgid "There was an error sending your message. Please try again."
+msgstr "发送留言时出现错误，请重试。"
+
+msgid "New York, NY"
+msgstr "纽约"
 
